@@ -15,13 +15,17 @@ namespace YTP_Vinesauce_Edition
         PitchUp,
         PitchDown
     }
-
+    
     static class YTP
     {
+        //TODO: This needs to NOT be hardcoded at some point
+        private static readonly int NumEffects;
+        private static Random EffectPicker = new Random();
+
+        [STAThread]
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
-        [STAThread]
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);

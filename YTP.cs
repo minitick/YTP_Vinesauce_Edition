@@ -6,6 +6,16 @@ using System.Windows.Forms;
 
 namespace YTP_Vinesauce_Edition
 {
+    public enum Effects 
+    {
+        RandomSound,
+        Reverse,
+        SpeedUp,
+        SlowDown,
+        PitchUp,
+        PitchDown
+    }
+
     static class YTP
     {
         /// <summary>
@@ -20,4 +30,6 @@ namespace YTP_Vinesauce_Edition
             Application.Run(new Form1());
         }
     }
+
+
 }

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace YTP_Vinesauce_Edition
 {
-    static class Program
+    static class YTP
     {
         /// <summary>
         ///  The main entry point for the application.

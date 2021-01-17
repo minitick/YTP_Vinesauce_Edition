@@ -24,6 +24,8 @@ namespace YTP_Vinesauce_Edition
     
     static class YTP
     {
+        private static string outputDirectory = "C:\\temp";
+
         //TODO: This needs to NOT be hardcoded at some point
         private static readonly int NumEffects;
         private static Random EffectPicker = new Random();

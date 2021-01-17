@@ -67,6 +67,13 @@ namespace YTP_Vinesauce_Edition
             return Timestamp;
         }
 
+        /// <summary>
+        /// Given a video file, reverses the video and audio streams, and 
+        /// creates a "clip" in outputDirectory.
+        /// </summary>
+        /// <param name="inputFile">The video file which will be 
+        /// reversed</param>
+        /// <returns></returns>
         private static async Task Reverse(string inputFile)
         {
             IMediaInfo mediaInfo = await FFmpeg.GetMediaInfo(inputFile);

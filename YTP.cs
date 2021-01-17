@@ -86,8 +86,14 @@ namespace YTP_Vinesauce_Edition
 
             Debug.Write("Finished videoStream\n");
 
+            IStream audioStream = mediaInfo.AudioStreams.FirstOrDefault()
+                ?.Reverse();
+
+            Debug.Write("Finished audioStream\n");
+
             var reverse = FFmpeg.Conversions.New()
                 .AddStream(videoStream)
+                .AddStream(audioStream)
                 .SetOutput(CreateOutputFilePath())
                 .SetOverwriteOutput(true);
 

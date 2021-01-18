@@ -87,22 +87,31 @@ namespace YTP_Vinesauce_Edition
             Debug.Write("Exiting Reverse()\n");
         }
 
-        /// <summary>
-        /// Creates a clip at 2x speed.
-        /// </summary>
-        /// <returns></returns>
-        private static async Task SpeedUp(IMediaInfo input)
-        {
-
-        }
 
         /// <summary>
-        /// Creates a clip at .5x speed.
+        /// Creates a clip based on changing the playback speed.  Designed to
+        /// be used to speed up (2x) or slow down (.5x).
         /// </summary>
         /// <returns></returns>
-        private static async Task SlowDown(IMediaInfo input)
+        private static async Task ChangeSpeed(IMediaInfo input, double speed)
         {
+            Debug.Write("Entering ChangeSpeed. Speed is " + speed.ToString() +"\n");
 
+            IStream videoStream = mediaInfo.VideoStreams.FirstOrDefault()
+                ?.SetCodec(VideoCodec.h264)
+                ?.SetSize(VideoSize.Hd480)
+                ?.ChangeSpeed(speed);
+
+            Debug.Write("ChangeSpeed(): Finished videoStream\n");
+
+            var changespeed = FFmpeg.Conversions.New()
+                .AddStream(videoStream)
+                .SetOutput(CreateOutputFilePath())
+                .SetOverwriteOutput(true);
+
+            await changespeed.Start();
+
+            Debug.Write("Exiting ChangeSpeed() (speed was "+speed+"\n");
         }
 
         /// <summary>

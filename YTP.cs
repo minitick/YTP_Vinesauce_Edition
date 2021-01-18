@@ -112,7 +112,7 @@ namespace YTP_Vinesauce_Edition
         {
             Debug.Write("Entering ChangeSpeed. Speed is " + speed.ToString() +"\n");
 
-            IStream videoStream = mediaInfo.VideoStreams.FirstOrDefault()
+            IStream videoStream = input.VideoStreams.FirstOrDefault()
                 ?.SetCodec(VideoCodec.h264)
                 ?.SetSize(VideoSize.Hd480)
                 ?.ChangeSpeed(speed);
@@ -138,13 +138,13 @@ namespace YTP_Vinesauce_Edition
         {
             Debug.Write("Entering PitchUp()\n");
 
-            IStream videoStream = mediaInfo.VideoStreams.FirstOrDefault()
+            IStream videoStream = input.VideoStreams.FirstOrDefault()
                 ?.SetCodec(VideoCodec.h264)
                 ?.SetSize(VideoSize.Hd480);
 
             Debug.Write("PitchUp(): Finished videoStream\n");
 
-            IStream audioStream = mediaInfo.AudioStreams.FirstOrDefault()
+            IStream audioStream = input.AudioStreams.FirstOrDefault()
                 //TODO: Make the sample rate dynamic based on input audio.
                 // Also need to test the length of audio, make sure it's 1:1 with
                 // the original audio.

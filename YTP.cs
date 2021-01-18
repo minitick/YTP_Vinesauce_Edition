@@ -138,6 +138,8 @@ namespace YTP_Vinesauce_Edition
         {
             Debug.Write("Entering PitchUp()\n");
 
+            string audioOutputDirectory = CreateOutputFilePath();
+
             IStream videoStream = input.VideoStreams.FirstOrDefault()
                 ?.SetCodec(VideoCodec.h264)
                 ?.SetSize(VideoSize.Hd480);
@@ -158,16 +160,26 @@ namespace YTP_Vinesauce_Edition
             IConversion conversion = FFmpeg.Conversions.New()
                 .AddStream(audioStream)
                 .AddParameter("-af \"asetrate=44100*2,atempo=.5,aresample=44100\"")
-                .SetOutput(CreateOutputFilePath());
+                .SetOutput(audioOutputDirectory);
+            await conversion.Start();
 
-            /*
+
+            Debug.Write("PitchUp(): Finished audio pitchup\n");
+
+            IMediaInfo pitchedUpAudioFile = await FFmpeg.GetMediaInfo(audioOutputDirectory);
+
+            IStream pitchedUpAudio = pitchedUpAudioFile.AudioStreams.FirstOrDefault();
+
             var pitchup = FFmpeg.Conversions.New()
-                .AddStream(audioStream, videoStream)
+                .AddStream(pitchedUpAudio, videoStream)
                 .SetOutput(CreateOutputFilePath())
                 .SetOverwriteOutput(true);
-            */
+
+            Debug.Write("PitchUp(): Conversion variable ready.\n");
 
             await pitchup.Start();
+
+            Debug.Write("PitchUp(): Clip assembled.\n");
 
             Debug.Write("Exiting PitchUp()\n");
         }

@@ -144,18 +144,28 @@ namespace YTP_Vinesauce_Edition
 
             Debug.Write("PitchUp(): Finished videoStream\n");
 
-            IStream audioStream = input.AudioStreams.FirstOrDefault()
+            
+            IStream audioStream = input.AudioStreams.FirstOrDefault();
+            /*
                 //TODO: Make the sample rate dynamic based on input audio.
                 // Also need to test the length of audio, make sure it's 1:1 with
                 // the original audio.
                 // Investigate using this, in case it's better: 
                 // https://manuelhans.com/blog/2020/01/09/changing-audio-pitch-with-ffmpeg/
                 ?.AddParameter("-af \"asetrate=44100*2,atempo=.5,aresample=44100\"");
+            */
 
+            IConversion conversion = FFmpeg.Conversions.New()
+                .AddStream(audioStream)
+                .AddParameter("-af \"asetrate=44100*2,atempo=.5,aresample=44100\"")
+                .SetOutput(CreateOutputFilePath());
+
+            /*
             var pitchup = FFmpeg.Conversions.New()
                 .AddStream(audioStream, videoStream)
                 .SetOutput(CreateOutputFilePath())
                 .SetOverwriteOutput(true);
+            */
 
             await pitchup.Start();
 

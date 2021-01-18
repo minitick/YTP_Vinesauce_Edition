@@ -115,12 +115,36 @@ namespace YTP_Vinesauce_Edition
         }
 
         /// <summary>
-        /// Creates a clip with its audio pitched up.
+        /// Creates a clip with its audio pitched up. Implements this logic:
+        /// http://johnriselvato.com/ffmpeg-how-to-change-the-pitch-sample-rate-of-an-audio-track-mp3/
         /// </summary>
         /// <returns></returns>
         private static async Task PitchUp(IMediaInfo input)
         {
+            Debug.Write("Entering PitchUp()\n");
 
+            IStream videoStream = mediaInfo.VideoStreams.FirstOrDefault()
+                ?.SetCodec(VideoCodec.h264)
+                ?.SetSize(VideoSize.Hd480);
+
+            Debug.Write("PitchUp(): Finished videoStream\n");
+
+            IStream audioStream = mediaInfo.AudioStreams.FirstOrDefault()
+                //TODO: Make the sample rate dynamic based on input audio.
+                // Also need to test the length of audio, make sure it's 1:1 with
+                // the original audio.
+                // Investigate using this, in case it's better: 
+                // https://manuelhans.com/blog/2020/01/09/changing-audio-pitch-with-ffmpeg/
+                ?.AddParameter("-af \"asetrate=44100*2,atempo=.5,aresample=44100\"");
+
+            var pitchup = FFmpeg.Conversions.New()
+                .AddStream(audioStream, videoStream)
+                .SetOutput(CreateOutputFilePath())
+                .SetOverwriteOutput(true);
+
+            await pitchup.Start();
+
+            Debug.Write("Exiting PitchUp()\n");
         }
 
         /// <summary>

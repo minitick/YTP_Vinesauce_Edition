@@ -87,6 +87,42 @@ namespace YTP_Vinesauce_Edition
             Debug.Write("Exiting Reverse()\n");
         }
 
+        /// <summary>
+        /// Creates a clip at 2x speed.
+        /// </summary>
+        /// <returns></returns>
+        private static async Task SpeedUp(IMediaInfo input)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a clip at .5x speed.
+        /// </summary>
+        /// <returns></returns>
+        private static async Task SlowDown(IMediaInfo input)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a clip with its audio pitched up.
+        /// </summary>
+        /// <returns></returns>
+        private static async Task PitchUp(IMediaInfo input)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a clip with its audio pitched down.
+        /// </summary>
+        /// <returns></returns>
+        private static async Task PitchDown(IMediaInfo input)
+        {
+
+        }
+
         private static string CreateOutputFilePath()
         {
             Guid guid = Guid.NewGuid();
